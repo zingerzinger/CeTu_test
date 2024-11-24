@@ -15,23 +15,57 @@ using namespace std;
 
 // ========================================
 
+struct STRC
+{
+    int val;
+};
+
 template<typename K, typename V>
 std::optional<V> foo(K key)
 {
-    return {};
+    return std::nullopt; // implement CeTu::nullopt ?
+    //return 123;
 }
 
+//template<typename T>
+//std::optional<T> foo(T val)
+//{
+////    T* tval = (T*)val;
+//
+//    return std::nullopt; // implement CeTu::nullopt ?
+//    return 123;
+//
+//}
+
 // ========================================
+
+/* Hmm
+ * The task:
+ * do not use std library
+ * comments : use std::string
+ * test code : cout , no std namespace usage
+ *
+ * Possibilities:
+ *
+ * - substitute the gcc with my version that just simulates a particular binary output for the CPU
+ * - study some more CPP meta
+ * - I might substitute anything if I have time and will, whooh.
+ *
+ */
+
+static int inputTemp = 0;
 
 int main() {
 
 // =====================================================
 
-//    auto data = foo(0);
-//
-//    if (data) {
-//        cout << "data: " << *data << endl;
-//    }
+    int tval = 123;
+
+    auto data = foo(tval);
+
+    if (data) {
+        cout << "data: " << *data << endl;
+    }
 
 // =====================================================
 
@@ -94,6 +128,9 @@ int main() {
 //    } else {
 //        cout << "Key 'pi' not found after erase." << endl;
 //    }
+
+    // TODO : remove garbage
+    cin >> inputTemp;
 
     return 0;
 }
