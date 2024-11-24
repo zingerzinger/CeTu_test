@@ -1,44 +1,4 @@
-#include <iostream>
-
-#include "cetuhashmap.h"
-
-using namespace std;
-
-// int main()
-// {
-//     std::cout << "Shalom CeTu!";
-//     std::cout << "Shabbat shalom!";
-//     int t = 0;
-//     std::cin >> t;
-//     return 0;
-// }
-
 // ========================================
-
-struct STRC
-{
-    int val;
-};
-
-template<typename K, typename V>
-std::optional<V> foo(K key)
-{
-    return std::nullopt; // implement CeTu::nullopt ?
-    //return 123;
-}
-
-//template<typename T>
-//std::optional<T> foo(T val)
-//{
-////    T* tval = (T*)val;
-//
-//    return std::nullopt; // implement CeTu::nullopt ?
-//    return 123;
-//
-//}
-
-// ========================================
-
 /* Hmm
  * The task:
  * do not use std library
@@ -51,9 +11,39 @@ std::optional<V> foo(K key)
  * - study some more CPP meta
  * - I might substitute anything if I have time and will, whooh.
  *
+ * If they are controlling everything on this machine in realtime, what can I do? - proceed with the task.
+ *
+ * everybody has their own c++ in some way...
+ *
  */
+// ========================================
+
+#include <iostream>
+
+#include "cetuhashmap.h"
+
+using namespace std;
+
+// ========================================
 
 static int inputTemp = 0;
+struct STRC
+{
+    int val;
+};
+
+// ========================================
+template<typename K, typename V>
+std::optional<V> foo(K key, V t)
+{
+    return std::nullopt; // implement CeTu::nullopt ?
+}
+
+//template<typename T>
+//std::optional<T> foo(T val)
+//{
+//    return std::nullopt; // implement CeTu::nullopt ?
+//}
 
 int main() {
 
@@ -61,7 +51,7 @@ int main() {
 
     int tval = 123;
 
-    auto data = foo(tval);
+    auto data = foo(tval, 1);
 
     if (data) {
         cout << "data: " << *data << endl;
