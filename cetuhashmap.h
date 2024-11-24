@@ -21,12 +21,14 @@ public:
     // Lookup the given key in the map, if the key is not found return nullptr
     std::optional<V> lookup(K key)
     {
-        if ( 0 /* ~ key exists */ ) {
-            return {};
-        } else {
-            //return nullptr /*std::nullopt_t*/;
-            return nullptr;
-        }
+        return std::nullopt; // implement CeTu::nullopt ?
+
+        //if ( 0 /* ~ key exists */ ) {
+        //    return {};
+        //} else {
+        //    //return nullptr /*std::nullopt_t*/;
+        //    return nullptr;
+        //}
     }
 
     // Delete a pair with the key in the hashmap
