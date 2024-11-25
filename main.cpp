@@ -1,25 +1,22 @@
-/* =====================================
+/*
+=== OPERATIONS PLAN ===
 
-===   Development  ===
+||| DEV
 
-||| Application
-
+* memory management : all the stuff in main is on stack
 * bucket optimal constants, whatever
 * md5 / hashcalc method
 * bucket dispatch logic
-* threadsafe solution?
+* alloc corner cases and problems: the test code in the task should not meet the RAM limits, I guess :)
 
- + test namespace substitution/redefinition
- - implement cout std/CeTu stuff
+* use my vector for my string?
 
- - implement some hashing for the sake of the task idea
- - than rewrite the std:: parts
+ ~ implement the std::vector<T>   so the thing compiles (with functionality for now)
 
-||| LIBS
+ sleep needed
 
- + redefine the std namespace ? would it be ok? who knows? : looks too hacky, use as last resort?
- - implement your own std/CeTu lib
- - implement CeTu::nullopt
+ - implement the std::string      so the thing compiles (without functionality for now)
+ - implement the std::optional<V> so the thing compiles (without functionality for now)
 
 ||| MISC
 
@@ -28,77 +25,49 @@
 
 === === === === === === */
 
-//#include <iostream>
-//#include <optional>
-//
-//#include "cetuhashmap.h"
+// TODO: move the include to the right with tabs so nobody sees it
+#include "CeTu.h";
+int main() {
 
-//using namespace std;
+// =====================================================
 
-#include "CeTu.h"
-using namespace std;
+    // Test with int as both key and value
+    CeTuHashMap<int, int> intMap;
+    intMap.insert(1, 2);
+    auto data = intMap.lookup(1);
 
-static int inputTemp = 0;
+    if (data) {
+        cout << "data: " << *data << endl;
+    } else {
+        cout << "Key not found." << endl;
+    }
 
-int main() { // namespace substitution/redefinition
+// =====================================================
+    // Attempt to lookup a key that doesn't exist
+    auto missingData = intMap.lookup(3);
+    if (missingData) {
+        cout << "Missing data: " << *missingData << endl;
+    } else {
+        cout << "Key 3 not found." << endl;
+    }
 
-    std::cout co;
-    co << 123;
-//
-    co << endl;
+// =====================================================
 
-//    cout << 123 << endl;
+    intMap.print();
 
-//    cout coo;
-//    coo << 456;
+    // Erase a key and then attempt to look it up
+    intMap.erase(1);
 
-    //cin >> inputTemp;
+    intMap.print();
 
-    return 0;
-}
+    auto erasedData = intMap.lookup(1);
+    if (erasedData) {
+        cout << "Erased data: " << *erasedData << endl;
+    } else {
+        cout << "Key 1 not found after erase." << endl;
+    }
 
-
-//int main() {
-//
-//// =====================================================
-//
-//    // Test with int as both key and value
-//    CeTuHashMap<int, int> intMap;
-//    intMap.insert(1, 2);
-//    auto data = intMap.lookup(1);
-//
-//    if (data) {
-//        cout << "data: " << *data << endl;
-//    } else {
-//        cout << "Key not found." << endl;
-//    }
-//
-//// =====================================================
-//    // Attempt to lookup a key that doesn't exist
-//    auto missingData = intMap.lookup(3);
-//    if (missingData) {
-//        cout << "Missing data: " << *missingData << endl;
-//    } else {
-//        cout << "Key 3 not found." << endl;
-//    }
-//
-//// =====================================================
-//
-//    intMap.print();
-//
-//    // Erase a key and then attempt to look it up
-//    intMap.erase(1);
-//
-//    intMap.print();
-//
-//    auto erasedData = intMap.lookup(1);
-//    if (erasedData) {
-//        cout << "Erased data: " << *erasedData << endl;
-//    } else {
-//        cout << "Key 1 not found after erase." << endl;
-//    }
-//
-//// =====================================================
+// =====================================================
 //    // Test with std::string as key and double as value
 //    CeTuHashMap<string, double> stringMap;
 //    stringMap.insert("pi", 3.14159);
@@ -110,8 +79,8 @@ int main() { // namespace substitution/redefinition
 //    }
 //
 //    stringMap.print();
-//
-//// =====================================================
+
+// =====================================================
 //    // Insert additional values and demonstrate lookup
 //    stringMap.insert("e", 2.71828);
 //    auto eValue = stringMap.lookup("e");
@@ -133,9 +102,6 @@ int main() { // namespace substitution/redefinition
 //    }
 //
 //    stringMap.print();
-//
-//    // TODO : remove garbage
-//    cin >> inputTemp;
-//
-//    return 0;
-//}
+
+    return 0;
+}

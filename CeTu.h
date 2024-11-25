@@ -1,77 +1,105 @@
 #ifndef CETU_H
 #define CETU_H
 
-// ===============
+#include <stdio.h> // might be substituted with ___asm calls for linux kernel calls, nobody asked for this thx God!
+#include <string.h>
 
-/* TODO:
- * cout
- * string
- */
+#include "cetuhashmap.h"
 
-#include <stdio.h>
-
-#define std CeTu // hacking this
-#define endl "\r\n" // hacking that
+#define std CeTu
+#define endl "\r\n"
 
 #define std CeTu
 
 namespace CeTu
 {
-    //template<typename T>
-    class cout
+
+    // === standard output ===
+
+    class coutt
     {
     public:
-//        cout()
-//        {
-//            // keep state, if we're have been created alredy
-//        }
 
-        // we need to return ourself for chain processing
-        cout& operator << (int val/*cout& is, T& obj */)
+        coutt& operator << (int val/*cout& is, T& obj */)
         {
             printf("%d", val);
-            return (*instance);
+            return (*this);
         }
 
-        // we need to return ourself for chain processing
-        //static cout& operator << (int val/*cout& is, T& obj */);
-
-        // we need to return ourself for chain processing
-        cout& operator << (const char* val)
+        coutt& operator << (const char* val)
         {
             printf("%s", val);
-            return (*instance);
+            return (*this);
         }
+    };
+
+    class string
+    {
+        // ?
+    };
+
+    // === vector container ===
+
+    template<typename T>
+    class vector
+    {
+    public:
+        vector() { }
+
+        ~vector() {
+            // free the BIG BUFFFFFER
+        }
+
+        // we're doing it in the simpliest way possible for now
+        void push_back(T val) {
+
+            void* newBuffer = malloc( (sizeof(T)*(m_size+1)) );
+
+            if (m_size) {
+                memcpy(newBuffer, buffer, (sizeof(T)*(m_size)));
+            }
+
+            free(buffer);
+            buffer = newBuffer;
+
+            // put it HERE
+            memcpy(newBuffer + (sizeof(T)*(m_size)),
+                   (T*)(&val),
+                   (sizeof(T)));
+
+            m_size++;
+        }
+
+        // we're doing it in the simpliest way possible for now
+        void pop_back() {
+            // alloc sizeof(T)*(m_size-1)
+            // copy old to new
+            // free old
+            // ...
+        }
+
+        void /*T*/ operator[] (int idx)
+        {
+            //printf("%s", val);
+            //return (*this);
+        }
+
+        int size() { return m_size; }
 
     private:
 
-        cout* instance = NULL;
+        int m_size = 0;
+        //int m_allocatedItems = 0;
+
+        void* buffer;
+
+        // storage
 
     };
-
-    //static cout cout::operator <<() { ; }
-
-//    static cout::operator << (int val/*cout& is, T& obj */);
-
-//    X operator--(int)
-//    {
-//        X old = *this; // copy old value
-//        operator--();  // prefix decrement
-//        return old;    // return old value
-//    }
-
 }
 
-// we need to return ourself for chain processing
-///*static*/ /*cout&*/void operator << (int val/*cout& is, T& obj */)
-// {
-//     printf("%d", val);
-// }
-//
-// static /*cout&*/void operator << (int val/*cout& is, T& obj */)
-// {
-//     printf("%d", val);
-// }
-// =========================================
+using namespace std;
+
+static coutt cout;
 
 #endif // CETU_H

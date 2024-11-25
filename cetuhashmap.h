@@ -5,8 +5,6 @@
 #include <iostream>
 #include <vector>
 
-// making the simpliest key:value storage using std::vector for now
-
 template<typename K, typename V>
 class CeTuHashMap
 {
