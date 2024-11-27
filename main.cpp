@@ -11,12 +11,16 @@
 
 * use my vector for my string?
 
- ~ implement the std::vector<T>   so the thing compiles (with functionality for now)
+ + implement the std::vector<T>   so the thing compiles (with functionality for now)
+ + test the vector : use push_back, then iterate it
+ + implement the std::string      so the thing compiles (without functionality for now)
 
- sleep needed
-
- - implement the std::string      so the thing compiles (without functionality for now)
+ - overload string comparison
  - implement the std::optional<V> so the thing compiles (without functionality for now)
+ - use the CeTu/std instead of std in the HashMap
+ - build and run, so that there is no normal std stuff
+
+ - proceed with sophistication of everything so that our brains exlode, but not too much!
 
 ||| MISC
 
@@ -27,46 +31,54 @@
 
 // TODO: move the include to the right with tabs so nobody sees it
 #include "CeTu.h";
+
 int main() {
+
+    // =====================================================
+
+    string a("a");
+    string b("a");
+
+    cout << (int)(a == b) << endl;
 
 // =====================================================
 
     // Test with int as both key and value
-    CeTuHashMap<int, int> intMap;
-    intMap.insert(1, 2);
-    auto data = intMap.lookup(1);
-
-    if (data) {
-        cout << "data: " << *data << endl;
-    } else {
-        cout << "Key not found." << endl;
-    }
-
-// =====================================================
-    // Attempt to lookup a key that doesn't exist
-    auto missingData = intMap.lookup(3);
-    if (missingData) {
-        cout << "Missing data: " << *missingData << endl;
-    } else {
-        cout << "Key 3 not found." << endl;
-    }
-
-// =====================================================
-
-    intMap.print();
-
-    // Erase a key and then attempt to look it up
-    intMap.erase(1);
-
-    intMap.print();
-
-    auto erasedData = intMap.lookup(1);
-    if (erasedData) {
-        cout << "Erased data: " << *erasedData << endl;
-    } else {
-        cout << "Key 1 not found after erase." << endl;
-    }
-
+//    CeTuHashMap<int, int> intMap;
+//    intMap.insert(1, 2);
+//    auto data = intMap.lookup(1);
+//
+//    if (data) {
+//        cout << "data: " << *data << endl;
+//    } else {
+//        cout << "Key not found." << endl;
+//    }
+//
+//// =====================================================
+//    // Attempt to lookup a key that doesn't exist
+//    auto missingData = intMap.lookup(3);
+//    if (missingData) {
+//        cout << "Missing data: " << *missingData << endl;
+//    } else {
+//        cout << "Key 3 not found." << endl;
+//    }
+//
+//// =====================================================
+//
+//    intMap.print();
+//
+//    // Erase a key and then attempt to look it up
+//    intMap.erase(1);
+//
+//    intMap.print();
+//
+//    auto erasedData = intMap.lookup(1);
+//    if (erasedData) {
+//        cout << "Erased data: " << *erasedData << endl;
+//    } else {
+//        cout << "Key 1 not found after erase." << endl;
+//    }
+//
 // =====================================================
 //    // Test with std::string as key and double as value
 //    CeTuHashMap<string, double> stringMap;
