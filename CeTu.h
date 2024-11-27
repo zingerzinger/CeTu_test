@@ -5,9 +5,9 @@
 
 #include <string.h> // TODO: exclude it
 
-//#include "stdlib.h"
+#include "stdlib.h"
 
-#include "cetuhashmap.h"
+//#include "cetuhashmap.h"
 
 #define std CeTu
 #define endl "\r\n"
@@ -19,7 +19,6 @@ namespace CeTu
 
     // === the string ===
 
-    // ok, make a simple string
     class string
     {
     private:
@@ -42,23 +41,28 @@ namespace CeTu
             *d = '\0';
         }
 
-        operator char*()
-        {
+        bool operator==(const string& other) {
+            char* a = &(              chars[0]);
+            char* b = (char*)(&(other.chars[0]));
 
-          //while ()
+            while (true) {
 
-          //char* test = new char[required_bytes];
-          // Fill 'test'
-          //return test;
+                if (*a != *b)                 { return false; }
+                if (*a == '\0' && *b != '\0') { return false; }
+                if (*a != '\0' && *b == '\0') { return false; }
+                if (*a == '\0' && *b == '\0') { break; }
+
+                a++;
+                b++;
+
+            }
+
+            return true;
         }
 
-//        operator int() const // string --> int
-//        {
-//          return data;
-//        }
-
-
-        // I guess we need a sophisticated copy constructor!
+        bool operator!=(const string& other) {
+            return !( string(chars) == other  );
+        }
 
     };
 
@@ -68,7 +72,7 @@ namespace CeTu
     {
     public:
 
-        coutt& operator << (int val/*cout& is, T& obj */)
+        coutt& operator << (int val)
         {
             printf("%d", val);
             return (*this);
@@ -90,7 +94,6 @@ namespace CeTu
     // === vector container ===
 
     // * memory alignment issues?
-
     template<typename T>
     class vector
     {
@@ -113,7 +116,6 @@ namespace CeTu
 
             buffer = newBuffer;
 
-            // put it HERE
             memcpy(newBuffer + (sizeof(T)*(m_size)),
                    (T*)(&val),
                    (sizeof(T)));
@@ -121,15 +123,12 @@ namespace CeTu
             m_size++;
         }
 
-        // we're doing it in the simpliest way possible for now
         void pop_back() {
 
             void* newBuffer = malloc( (sizeof(T)*(m_size-1)) );
 
-            //if (m_size) {
-                memcpy(newBuffer, buffer, (sizeof(T)*(m_size-1)));
-                free(buffer);
-            //}
+            memcpy(newBuffer, buffer, (sizeof(T)*(m_size-1)));
+            free(buffer);
 
             buffer = newBuffer;
 
@@ -147,12 +146,7 @@ namespace CeTu
     private:
 
         int m_size = 0;
-        //int m_allocatedItems = 0;
-
         void* buffer = 0;
-
-        // storage
-
     };
 }
 
@@ -190,8 +184,7 @@ static coutt cout;
 //    cout << "TEST" << endl;
 //======================================
 
-// =====================================================
-
+//======================================
 //    vector<string> vs;
 //
 //    vs.push_back("hello");
@@ -200,3 +193,11 @@ static coutt cout;
 //    for (int i = 0; i < vs.size(); i++) {
 //        cout << vs[i] << endl;
 //    }
+//======================================
+
+//======================================
+//    string a("abc");
+//    string b("ab!!");
+//
+//    cout << (int)(a != b) << endl;
+//======================================

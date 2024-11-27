@@ -3,24 +3,17 @@
 
 ||| DEV
 
-* memory management : all the stuff in main is on stack
 * bucket optimal constants, whatever
 * md5 / hashcalc method
 * bucket dispatch logic
 * alloc corner cases and problems: the test code in the task should not meet the RAM limits, I guess :)
 
-* use my vector for my string?
-
- + implement the std::vector<T>   so the thing compiles (with functionality for now)
- + test the vector : use push_back, then iterate it
- + implement the std::string      so the thing compiles (without functionality for now)
-
- - overload string comparison
  - implement the std::optional<V> so the thing compiles (without functionality for now)
+
  - use the CeTu/std instead of std in the HashMap
  - build and run, so that there is no normal std stuff
 
- - proceed with sophistication of everything so that our brains exlode, but not too much!
+ - proceed with the hashing logic
 
 ||| MISC
 
@@ -34,12 +27,7 @@
 
 int main() {
 
-    // =====================================================
-
-    string a("a");
-    string b("a");
-
-    cout << (int)(a == b) << endl;
+// =====================================================
 
 // =====================================================
 
