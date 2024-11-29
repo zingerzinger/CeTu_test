@@ -9,6 +9,7 @@
 * alloc corner cases and problems: the test code in the task should not meet the RAM limits, I guess :)
 
  - implement the std::optional<V> so the thing compiles (without functionality for now)
+  - reduce to the most simple thing possible using the class to help gcc deduce the types
 
  - use the CeTu/std instead of std in the HashMap
  - build and run, so that there is no normal std stuff
@@ -25,10 +26,133 @@
 // TODO: move the include to the right with tabs so nobody sees it
 #include "CeTu.h";
 
+// === optional test ===
+
+// class nullopt { /* overload dereferencing? (ret nullptr) */ };
+
+template<typename V>
+class optional
+{
+
+public:
+
+    bool isEmty = true;
+    V val;
+
+    optional(V _val)
+    {
+        val = _val;
+        isEmty = false;
+    }
+
+    optional()
+    {
+        isEmty = true;
+    }
+
+//    operator int() const {
+//
+//        if (isEmty) {
+//            return nullptr;
+//        } else {
+//            return ((int)val);
+//        }
+//    }
+
+    operator bool() const {
+        return !isEmty;
+    }
+
+    operator int() const {
+        return (int)val;
+    }
+
+    // overload some casts
+    V* operator->() const
+    {
+        if (isEmty) {
+            return nullptr;
+        } else {
+            //return *val;
+            return val;
+        }
+    }
+
+};
+
+template<typename V>
+class OpTestClass
+{
+public:
+    OpTestClass() { }
+
+    // Lookup the given key in the map, if the key is not found return nullptr
+    optional<V> lookup(int key)
+    {
+
+        // return the found value
+        return 123;
+
+        // ------------------
+
+        // return null:
+
+        optional<V> opt;
+        opt.isEmty = true;
+
+        return opt;
+    }
+};
+
+// Lookup the given key in the map, if the key is not found return nullptr
+//template<typename V>
+//optional<V> tlookup(int some)
+//{
+//
+//    some++;
+//
+//    return 456;
+//
+//    //return nullptr;
+//
+//    //return nullopt;
+//}
+
 int main() {
 
 // =====================================================
 
+    OpTestClass<int> otc;
+
+    auto data = otc.lookup(1);
+
+    //cout << "data: " << ((int)(data)) << endl;
+
+//    int abc = data;
+
+//    if (data) {
+//        cout << "data: " << *data << endl;
+//    } else {
+//        cout << "Key not found." << endl;
+//    }
+
+// ======================
+
+     //optional<int> opt = tlookup(123);
+
+//    optional<int> data = tlookup(123);
+//    cout << "data: " << data << endl;
+
+//    auto data = tlookup(123);
+//
+//    if (data) {
+//        cout << "data: " << *data << endl;
+//    } else {
+//        cout << "Key not found." << endl;
+//    }
+
+// =====================================================
+// =====================================================
 // =====================================================
 
     // Test with int as both key and value

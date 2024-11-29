@@ -3,10 +3,10 @@
 
 #include <stdio.h> // might be substituted with ___asm calls for linux kernel calls, nobody asked for this thx God!
 
-#include <string.h> // TODO: exclude it
-
+#include "string.h"
 #include "stdlib.h"
 
+// v-- move this down --v
 //#include "cetuhashmap.h"
 
 #define std CeTu
@@ -14,9 +14,10 @@
 
 #define std CeTu
 
+#define nullptr NULL;
+
 namespace CeTu
 {
-
     // === the string ===
 
     class string
@@ -148,6 +149,28 @@ namespace CeTu
         int m_size = 0;
         void* buffer = 0;
     };
+
+//    // === optional ===
+//
+//    template<typename V>
+//    class optional
+//    {
+//        V val;
+//
+//    public:
+//
+//        optional(V _val)
+//        {
+//            val = _val;
+//        }
+//
+//    };
+//
+//
+//    class nullopt
+//    {
+//        // overload dereferencing? (ret nullptr)
+//    };
 }
 
 using namespace std;
