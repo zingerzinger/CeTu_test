@@ -150,6 +150,7 @@ namespace CeTu
         void* buffer = 0;
     };
 
+// TODO:  being developed in main.cpp currently
 //    // === optional ===
 //
 //    template<typename V>
@@ -178,6 +179,8 @@ using namespace std;
 static coutt cout;
 
 #endif // CETU_H
+
+// === TESTS ===
 
 //======================================
 // vector test:

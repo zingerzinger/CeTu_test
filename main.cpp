@@ -9,7 +9,7 @@
 * alloc corner cases and problems: the test code in the task should not meet the RAM limits, I guess :)
 
  - implement the std::optional<V> so the thing compiles (without functionality for now)
-  - reduce to the most simple thing possible using the class to help gcc deduce the types
+  ~ reduce to the most simple thing possible using the class to help gcc deduce the types
 
  - use the CeTu/std instead of std in the HashMap
  - build and run, so that there is no normal std stuff
@@ -23,7 +23,7 @@
 
 === === === === === === */
 
-// TODO: move the include to the right with tabs so nobody sees it
+// TODO: move the include to the right with tabs so nobody sees it, so that everything works according to specifications
 #include "CeTu.h";
 
 // === optional test ===
@@ -90,8 +90,8 @@ public:
     optional<V> lookup(int key)
     {
 
-        // return the found value
-        return 123;
+        // TODO: return the found value
+        //return 123;
 
         // ------------------
 
@@ -104,20 +104,6 @@ public:
     }
 };
 
-// Lookup the given key in the map, if the key is not found return nullptr
-//template<typename V>
-//optional<V> tlookup(int some)
-//{
-//
-//    some++;
-//
-//    return 456;
-//
-//    //return nullptr;
-//
-//    //return nullopt;
-//}
-
 int main() {
 
 // =====================================================
@@ -128,13 +114,11 @@ int main() {
 
     //cout << "data: " << ((int)(data)) << endl;
 
-//    int abc = data;
-
-//    if (data) {
-//        cout << "data: " << *data << endl;
-//    } else {
-//        cout << "Key not found." << endl;
-//    }
+    if (data) {
+        //cout << "data: " << *data << endl;
+    } else {
+        cout << "Key not found." << endl;
+    }
 
 // ======================
 
