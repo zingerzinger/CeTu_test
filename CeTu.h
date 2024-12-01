@@ -73,9 +73,15 @@ namespace CeTu
     {
     public:
 
-        coutt& operator << (int val)
+//        coutt& operator << (int val)
+//        {
+//            printf("%d", val);
+//            return (*this);
+//        }
+
+        coutt& operator << (double val)
         {
-            printf("%d", val);
+            printf("%f", val);
             return (*this);
         }
 

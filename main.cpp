@@ -8,8 +8,15 @@
 * bucket dispatch logic
 * alloc corner cases and problems: the test code in the task should not meet the RAM limits, I guess :)
 
+ + explore some RTTI in the context of templates : hmm, not relevant to the problems
+
+ * tried to use conversion to double for both int and double (optional) - the if (data) cast to bool does not work, I'm drowning and drowning
+
  - implement the std::optional<V> so the thing compiles (without functionality for now)
-  ~ reduce to the most simple thing possible using the class to help gcc deduce the types
+  + reduce to the most simple thing possible using the class to help gcc deduce the types
+  + optional works with int
+  - make it work with strings : no results
+
 
  - use the CeTu/std instead of std in the HashMap
  - build and run, so that there is no normal std stuff
@@ -38,6 +45,7 @@ public:
 
     bool isEmty = true;
     V val;
+    double td;
 
     optional(V _val)
     {
@@ -50,75 +58,140 @@ public:
         isEmty = true;
     }
 
-//    operator int() const {
-//
-//        if (isEmty) {
-//            return nullptr;
-//        } else {
-//            return ((int)val);
-//        }
-//    }
-
     operator bool() const {
         return !isEmty;
     }
 
-    operator int() const {
-        return (int)val;
+    operator int*() const {
+        return ((int*)(&val));
     }
 
-    // overload some casts
+    operator double*() {
+        td = (double)val;
+        //double d = (double)val;
+        return ((double*)(&val));
+        //return ((double*)(&d));
+    }
+
     V* operator->() const
     {
         if (isEmty) {
             return nullptr;
         } else {
-            //return *val;
             return val;
         }
     }
 
 };
 
-template<typename V>
+// simple adhoc int/double
+// template<typename K, typename V>
+// class OpTestClass
+// {
+// public:
+//     OpTestClass() { }
+//
+//     // Lookup the given key in the map, if the key is not found return nullptr
+//     optional<V> lookup(K key)
+//     {
+// //        return 123;
+// //
+// //        optional<V> opt;
+// //        opt.isEmty = true;
+// //
+// //        return opt;
+//
+//
+//         return 123.456;
+//
+//         optional<V> opt;
+//         opt.isEmty = true;
+//
+//         return opt;
+//     }
+//
+//     V storedValue;
+// };
+
+template<typename K, typename V>
 class OpTestClass
 {
 public:
     OpTestClass() { }
 
     // Lookup the given key in the map, if the key is not found return nullptr
-    optional<V> lookup(int key)
+    optional<V> lookup(K key)
     {
+        return storedValue;
 
-        // TODO: return the found value
-        //return 123;
-
-        // ------------------
-
-        // return null:
-
-        optional<V> opt;
-        opt.isEmty = true;
-
-        return opt;
+        //optional<V> opt;
+        //opt.isEmty = true;
+        //
+        //return opt;
     }
+
+    V storedValue;
 };
+
+// ====================== ====================== ======================
+
+// my RTTI using sizeof?
+
+//template<typename T>
+//class rttic
+//{
+//public:
+//    rttic() { }
+//
+//    void foo(T val)
+//    {
+//
+//
+//        int sz = sizeof(T);
+//        cout << sz;
+//    }
+//
+//    // V storedValue;
+//};
 
 int main() {
 
-// =====================================================
+// ====================== ====================== ======================
+    //rttic<>
+    //dynamic_cast<>
+// ====================== ====================== ======================
 
-    OpTestClass<int> otc;
+// === string/double k:v ===
+
+    OpTestClass<string, double> stringMap;
+
+    stringMap.storedValue = 123.456;
+
+    auto piValue = stringMap.lookup("pi");
+
+//    cout << *piValue;
+
+    if (piValue) {
+        cout << "pi: " << *piValue << endl;
+    } else {
+        cout << "Key 'pi' not found." << endl;
+    }
+
+// === int/int k:v ===
+
+    OpTestClass<int, int> otc;
+
+    otc.storedValue = 123;
 
     auto data = otc.lookup(1);
 
-    //cout << "data: " << ((int)(data)) << endl;
-
     if (data) {
-        //cout << "data: " << *data << endl;
+        cout << "data: " << *data << endl;
     } else {
         cout << "Key not found." << endl;
     }
+
+// ====================== ====================== ======================
 
 // ======================
 
